@@ -55,9 +55,11 @@ end
 
 ### Rendering an SVG
 
+```crystal
 require "qr-code"
 
 svg_string = QRCode.new("my string to generate").as_svg
+```
 
 
 ## Credits
