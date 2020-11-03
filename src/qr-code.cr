@@ -528,3 +528,5 @@ class QRCode
     data
   end
 end
+
+require "./qr-code/export/*"

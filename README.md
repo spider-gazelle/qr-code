@@ -36,6 +36,7 @@ x xxx x  xxxxx x       xx x xxx x
 ... etc
 ```
 
+
 ### Doing your own rendering
 
 ```crystal
@@ -50,6 +51,13 @@ qr.modules.each do |row|
   print "\n"
 end
 ```
+
+
+### Rendering an SVG
+
+require "qr-code"
+
+svg_string = QRCode.new("my string to generate").as_svg
 
 
 ## Credits
