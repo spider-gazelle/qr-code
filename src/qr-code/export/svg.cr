@@ -1,7 +1,7 @@
 # https://github.com/samvincent/rqrcode-rails3
 # https://github.com/whomwah/rqrcode/blob/master/lib/rqrcode/export/svg.rb
 class QRCode
-  def as_svg(offset = 0, color = "000", shape_rendering = "crispEdges", module_size = 11, standalone = true, fill : String? = nil)
+  def as_svg(offset = 0, color = "000", shape_rendering = "crispEdges", module_size = 11, standalone = true, fill : String? = "fff")
     # height and width dependent on offset and QR complexity
     dimension = (module_count * module_size) + (2 * offset)
 
