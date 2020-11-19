@@ -529,4 +529,4 @@ class QRCode
   end
 end
 
-require "./qr-code/export/*"
+require "./qr-code/export/svg"
