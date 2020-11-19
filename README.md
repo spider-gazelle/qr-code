@@ -53,12 +53,25 @@ end
 ```
 
 
-### Rendering an SVG
+### Rendering a SVG
 
 ```crystal
 require "qr-code"
 
 svg_string = QRCode.new("my string to generate").as_svg
+```
+
+
+### Rendering a PNG
+
+you'll need to add [stumpy_png](https://github.com/stumpycr/stumpy_png) to your `shard.yml` dependencies
+
+```crystal
+require "qr-code"
+require "qr-code/export/png"
+
+# size == width, and QR codes are square
+png_bytes = QRCode.new("my string to generate").as_png(size: 256)
 ```
 
 
