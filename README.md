@@ -1,6 +1,6 @@
 # Crystal Lang QR Code
 
-[![Build Status](https://travis-ci.com/spider-gazelle/qr-code.svg?branch=master)](https://travis-ci.com/github/spider-gazelle/qr-code)
+[![CI](https://github.com/spider-gazelle/qr-code/actions/workflows/ci.yml/badge.svg)](https://github.com/spider-gazelle/qr-code/actions/workflows/ci.yml)
 
 Native crystal lang QR code, no external dependencies
 
