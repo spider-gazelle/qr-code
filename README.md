@@ -17,7 +17,7 @@ Native crystal lang QR code, no external dependencies
 2. Run `shards install`
 
 
-## Uasge
+## Usage
 
 ```crystal
 require "qr-code"
