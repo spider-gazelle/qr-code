@@ -2,7 +2,7 @@ require "stumpy_png"
 
 # https://github.com/whomwah/rqrcode/blob/master/lib/rqrcode/export/png.rb#L1
 class QRCode
-  def as_png(
+  def as_canvas(
     bit_depth : Int32 = 1,
     border_modules : Int32 = 3,
     color_type : Symbol = :grayscale,
@@ -32,6 +32,26 @@ class QRCode
         end
       end
     end
+
+    png
+  end
+
+  def as_png(
+    bit_depth : Int32 = 1,
+    border_modules : Int32 = 3,
+    color_type : Symbol = :grayscale,
+    color : String = "#000000",
+    fill : String = "#ffffff",
+    size : Int32 = 128
+  )
+    png = as_canvas(
+      bit_depth,
+      border_modules,
+      color_type,
+      color,
+      fill,
+      size
+    )
 
     # return the image bytes
     io = IO::Memory.new
