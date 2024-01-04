@@ -14,7 +14,9 @@ class QRCode
     fill = StumpyPNG::RGBA.from_hex(fill)
 
     module_px_size = (size.to_f / (module_count + 2 * border_modules).to_f).floor.to_i
+    module_px_size = 1 if module_px_size == 0
     img_size = module_px_size * module_count
+    size = img_size if img_size > size
 
     remaining = size - img_size
     border_px = (remaining.to_f / 2.0).floor.to_i
