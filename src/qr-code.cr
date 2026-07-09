@@ -152,6 +152,14 @@ class QRCode
   @data_list : Numeric | Alphanumeric | EightBitByte
 
   def initialize(@data : String, size : Int32? = nil, level : Symbol = :h, mode : Symbol? = nil)
+    if mode && !MODE_NAME.has_key?(mode)
+      raise ArgumentError.new("Unknown mode `#{mode}`. Valid modes: #{MODE_NAME.keys.join(", ")}")
+    end
+
+    unless ERROR_CORRECT_LEVEL.has_key?(level)
+      raise ArgumentError.new("Unknown error-correction level `#{level}`. Valid levels: #{ERROR_CORRECT_LEVEL.keys.join(", ")}")
+    end
+
     mode = MODE_NAME[mode] if mode
     mode ||= case
              when Numeric.valid_data?(@data)
@@ -164,8 +172,8 @@ class QRCode
     max_size_array = MAX_DIGITS[level][mode]
     size = size || smallest_size_for(@data, max_size_array)
 
-    if size > Utilities.max_size
-      raise ArgumentError.new("Given size greater than maximum possible size of #{Utilities.max_size}")
+    unless size.in?(1..Utilities.max_size)
+      raise ArgumentError.new("Given size #{size} is outside the valid range 1..#{Utilities.max_size}")
     end
 
     @error_correct_level = ERROR_CORRECT_LEVEL[level]
