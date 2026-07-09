@@ -4,6 +4,11 @@
 
 Native crystal lang QR code, no external dependencies
 
+> [!NOTE]
+> For a more complete, better-implemented option, consider
+> [goban](https://github.com/soya-daizu/goban) — a full-featured QR Code / Micro QR
+> Code encoder and decoder for Crystal.
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
