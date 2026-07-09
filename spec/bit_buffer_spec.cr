@@ -28,5 +28,12 @@ class QRCode
       tight.end_of_message(8) # no room -> no terminator
       tight.get_length_in_bits.should eq 8
     end
+
+    it "adds a partial terminator of min(4, remaining) bits" do
+      buffer = BitBuffer.new(1)
+      buffer.put(0, 20)
+      buffer.end_of_message(22) # remaining 2 -> add 2, not 0
+      buffer.get_length_in_bits.should eq 22
+    end
   end
 end
