@@ -48,9 +48,18 @@ class QRCode
 
     it "should print output using to_s" do
       qr = QRCode.new("duncan", size: 1)
-      "xxxxxxx xx x  xxxxxxx\n".should eq qr.to_s[0..21]
-      "qqqqqqqnqqnqnnqqqqqqq\n".should eq qr.to_s(dark: 'q', light: 'n')[0..21]
-      "@@@@@@@ @@ @  @@@@@@@\n".should eq qr.to_s(dark: '@')[0..21]
+      "xxxxxxx xx x  xxxxxxx\n".should eq qr.to_s(quiet_zone_size: 0)[0..21]
+      "qqqqqqqnqqnqnnqqqqqqq\n".should eq qr.to_s(dark: 'q', light: 'n', quiet_zone_size: 0)[0..21]
+      "@@@@@@@ @@ @  @@@@@@@\n".should eq qr.to_s(dark: '@', quiet_zone_size: 0)[0..21]
+    end
+
+    it "wraps the matrix in a 4-module quiet zone by default" do
+      qr = QRCode.new("duncan", size: 1) # 21 modules
+      lines = qr.to_s.split("\n")
+      lines.size.should eq 21 + 2 * 4
+      lines.each(&.size.should eq(21 + 2 * 4))
+      lines.first.should eq " " * (21 + 2 * 4)
+      lines.last.should eq " " * (21 + 2 * 4)
     end
 
     it "should work with auto numeric" do
@@ -75,7 +84,7 @@ class QRCode
       data = "279042272585972554922067893753871413584876543211601021503002"
 
       qr = QRCode.new(data, size: 2, level: :m, mode: :number)
-      qr.to_s[0..25].should eq "xxxxxxx   x x x   xxxxxxx\n"
+      qr.to_s(quiet_zone_size: 0)[0..25].should eq "xxxxxxx   x x x   xxxxxxx\n"
     end
 
     it "should not throw an error performing rszf" do

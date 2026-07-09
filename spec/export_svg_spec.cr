@@ -39,5 +39,14 @@ class QRCode
       QRCode.new("qrcode").as_svg(color: "000000", fill: nil)
       QRCode.new("qrcode").as_svg(shape_rendering: "geometricPrecision")
     end
+
+    it "adds a 4-module quiet zone by default (offset scales with module_size)" do
+      qr = QRCode.new("qrcode")
+      mc = qr.module_count
+      module_size = 11
+
+      qr.as_svg.should contain(%{width="#{mc * module_size + 2 * (4 * module_size)}"})
+      qr.as_svg(offset: 0).should contain(%{width="#{mc * module_size}"})
+    end
   end
 end

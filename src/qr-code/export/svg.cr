@@ -7,7 +7,7 @@ class QRCode
   # Allowed SVG `shape-rendering` keywords.
   SVG_SHAPE_RENDERING = %w(auto optimizeSpeed crispEdges geometricPrecision inherit)
 
-  def as_svg(offset = 0, color = "000", shape_rendering = "crispEdges", module_size = 11, standalone = true, fill : String? = "fff")
+  def as_svg(offset : Int32? = nil, color = "000", shape_rendering = "crispEdges", module_size = 11, standalone = true, fill : String? = "fff")
     # Reject anything that isn't a plain hex colour / known keyword: these values
     # are interpolated straight into the markup, so an unchecked string is an SVG
     # injection vector.
@@ -22,6 +22,10 @@ class QRCode
     unless SVG_SHAPE_RENDERING.includes?(shape_rendering)
       raise ArgumentError.new("Invalid shape_rendering #{shape_rendering.inspect}. Valid: #{SVG_SHAPE_RENDERING.join(", ")}")
     end
+
+    # Default to a 4-module quiet zone (ISO/IEC 18004); it scales with module_size.
+    # Pass an explicit `offset` (in pixels, e.g. 0) to override.
+    offset = 4 * module_size if offset.nil?
 
     # height and width dependent on offset and QR complexity
     dimension = (module_count * module_size) + (2 * offset)

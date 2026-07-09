@@ -231,7 +231,7 @@ class QRCode
   #  EQEEEQEQQEEEEEQEQQQQQQQEEQEQEEEQE
   #
 
-  def to_s(dark : Char = 'x', light : Char = ' ', quiet_zone_size : Int32 = 0)
+  def to_s(dark : Char = 'x', light : Char = ' ', quiet_zone_size : Int32 = 4)
     rows = [] of Array(Char)
 
     @modules.each do |row|
@@ -239,6 +239,7 @@ class QRCode
       row.each do |col|
         cols << (col ? dark : light)
       end
+      quiet_zone_size.times { cols << light }
       rows << cols
     end
 
