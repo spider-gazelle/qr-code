@@ -1,0 +1,21 @@
+# Ameba configuration.
+#
+# The rules below are disabled because they clash with this codebase's deliberate
+# conventions rather than flagging real problems:
+
+# Tight numeric loops use single-letter indices (i, j, r, c, s, b, n, g), which
+# read clearly in the QR matrix / Reed-Solomon math.
+Naming/BlockParameterName:
+  Enabled: false
+
+# `get_length`, `get_length_in_bits`, ... are the existing public accessor names;
+# renaming them is a separate, breaking API change (tracked in issue #3), not a
+# lint fix.
+Naming/AccessorMethodName:
+  Enabled: false
+
+# The remaining `not_nil!` calls act on caches that are guaranteed to be populated
+# at that point (`@common_patterns` after `prepare_common_patterns`, `@data_cache`
+# after the guard above).
+Lint/NotNil:
+  Enabled: false

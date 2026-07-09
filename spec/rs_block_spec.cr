@@ -7,7 +7,7 @@ class QRCode
     end
 
     it "is well-formed: groups of {count, total, data} with total > data > 0" do
-      RSBlock::TABLE.each_with_index do |row, idx|
+      RSBlock::TABLE.each do |row|
         (row.size % 3).should eq 0
         row.size.should be > 0
 
