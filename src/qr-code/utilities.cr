@@ -113,7 +113,7 @@ module QRCode::Utilities
   end
 
   def get_mask(mask_pattern, i, j)
-    if mask_pattern > MASK_COMPUTATIONS.size
+    if mask_pattern >= MASK_COMPUTATIONS.size
       raise RuntimeError.new("bad mask_pattern: #{mask_pattern}")
     end
 

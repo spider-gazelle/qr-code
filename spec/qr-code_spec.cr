@@ -88,6 +88,13 @@ class QRCode
       expect_raises(QRCode::ArgumentError) { QRCode.new("duncan", size: 41) }
     end
 
+    it "should raise a mode-agnostic overflow error when data fits no version" do
+      # byte-mode payload larger than every version's capacity; the message must
+      # not claim "digits" for non-numeric data.
+      ex = expect_raises(QRCode::RuntimeError) { QRCode.new("x" * 3000) }
+      ex.message.should_not match(/digit/i)
+    end
+
     it "should return the correct version" do
       QRCode.new(Array.new(289, '1').join(""), level: :h, mode: :number).version.should eq 11
       QRCode.new(Array.new(175, 'A').join(""), level: :h, mode: :alphanumeric).version.should eq 11
