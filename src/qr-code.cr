@@ -439,7 +439,7 @@ class QRCode
   private def smallest_size_for(string, max_size_array) # :nodoc:
     l = string.bytesize
     ver = max_size_array.index { |i| i >= l }
-    raise RuntimeError.new("code length overflow. (#{l} digits > any version capacity)") unless ver
+    raise RuntimeError.new("code length overflow. (#{l} > capacity of any version)") unless ver
     ver + 1
   end
 
