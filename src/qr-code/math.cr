@@ -19,7 +19,7 @@ module QRCode::Math
   end
 
   def self.glog(n)
-    raise RuntimeError.new("glog(#{n})") if (n < 1)
+    raise RuntimeError.new("glog(#{n})") if n < 1
     LOG_TABLE[n]
   end
 

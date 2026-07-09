@@ -155,7 +155,10 @@ class QRCode
   @error_correct_level : Int32
   @data_list : Numeric | Alphanumeric | EightBitByte
 
-  def initialize(@data : String, size : Int32? = nil, level : Symbol = :h, mode : Symbol? = nil)
+  def initialize(@data : String, version : Int32? = nil, level : Symbol = :h, mode : Symbol? = nil, size : Int32? = nil)
+    # `size` is a deprecated alias for `version`; `version` wins when both given.
+    size = version || size
+
     if mode && !MODE_NAME.has_key?(mode)
       raise ArgumentError.new("Unknown mode `#{mode}`. Valid modes: #{MODE_NAME.keys.join(", ")}")
     end
@@ -261,10 +264,11 @@ class QRCode
   end
 
   # Return a symbol for current error connection level
-  def error_correction_level
+  def error_correction_level : Symbol
     ERROR_CORRECT_LEVEL.each do |key, value|
       return key if value == @error_correct_level
     end
+    raise RuntimeError.new("Unknown error-correction level: #{@error_correct_level}")
   end
 
   # Return a symbol in QRMODE.keys for current mode used

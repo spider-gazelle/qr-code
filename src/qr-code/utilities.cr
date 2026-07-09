@@ -210,7 +210,7 @@ module QRCode::Utilities
         count += 1 if modules[row + 1][col]
         count += 1 if modules[row][col + 1]
         count += 1 if modules[row + 1][col + 1]
-        if (count == 0 || count == 4)
+        if count == 0 || count == 4
           demerit_points += DEMERIT_POINTS_2
         end
       end
