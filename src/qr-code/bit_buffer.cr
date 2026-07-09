@@ -68,6 +68,10 @@ class QRCode::BitBuffer
   end
 
   def end_of_message(max_data_bits)
-    put(0, 4) unless get_length_in_bits + 4 > max_data_bits
+    # ISO/IEC 18004: append a terminator of up to 4 zero bits, or fewer if the
+    # capacity runs out first.
+    remaining = max_data_bits - get_length_in_bits
+    terminator = remaining < 4 ? remaining : 4
+    put(0, terminator) if terminator > 0
   end
 end
