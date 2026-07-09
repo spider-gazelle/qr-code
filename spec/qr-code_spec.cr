@@ -101,7 +101,7 @@ class QRCode
       QRCode.new("duncan", level: :h)
 
       %i(a b c d e f g i j k n o p r s t u v w x y z).each do |ltr|
-        expect_raises(KeyError) { QRCode.new("duncan", level: ltr) }
+        expect_raises(QRCode::ArgumentError) { QRCode.new("duncan", level: ltr) }
       end
     end
 
