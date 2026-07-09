@@ -8,7 +8,7 @@ class QRCode
     color_type : Symbol = :grayscale,
     color : String = "#000000",
     fill : String = "#ffffff",
-    size : Int32 = 128
+    size : Int32 = 128,
   )
     color = StumpyPNG::RGBA.from_hex(color)
     fill = StumpyPNG::RGBA.from_hex(fill)
@@ -44,7 +44,7 @@ class QRCode
     color_type : Symbol = :grayscale,
     color : String = "#000000",
     fill : String = "#ffffff",
-    size : Int32 = 128
+    size : Int32 = 128,
   )
     png = as_canvas(
       bit_depth,
