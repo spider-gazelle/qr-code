@@ -11,11 +11,6 @@ class QRCode::BitBuffer
     @length = 0
   end
 
-  def get(index)
-    buf_index = (index // 8)
-    ((Utilities.rszf(@buffer[buf_index], 7 - index % 8)) & 1) == 1
-  end
-
   def put(num, length)
     (0...length).each do |i|
       put_bit(((Utilities.rszf(num, length - i - 1)) & 1) == 1)
