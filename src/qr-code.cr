@@ -183,7 +183,7 @@ class QRCode
     @error_correct_level = ERROR_CORRECT_LEVEL[level]
     @version = size
     @module_count = @version * 4 + POSITION_PATTERN_LENGTH
-    @modules = Array.new(@module_count, [] of Bool?)
+    @modules = Array.new(@module_count) { [] of Bool? }
     @data_list =
       case mode
       when :mode_number
