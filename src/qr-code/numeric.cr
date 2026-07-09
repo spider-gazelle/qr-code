@@ -13,7 +13,7 @@ class QRCode::Numeric
 
   def self.valid_data?(data)
     data.each_char do |s|
-      return false if NUMERIC.index(s).nil?
+      return false unless s.in?('0'..'9')
     end
     true
   end
