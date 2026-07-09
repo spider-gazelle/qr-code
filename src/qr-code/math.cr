@@ -1,17 +1,21 @@
 module QRCode::Math
-  EXP_TABLE = Array(Int32).new(256, 0)
-  LOG_TABLE = Array(Int32).new(256, 0)
+  # GF(256) antilog / log tables used by the Reed-Solomon generator.
+  EXP_TABLE = build_exp_table
+  LOG_TABLE = build_log_table(EXP_TABLE)
 
-  (0...8).each do |i|
-    EXP_TABLE[i] = 1 << i
+  private def self.build_exp_table
+    table = Array(Int32).new(256, 0)
+    (0...8).each { |i| table[i] = 1 << i }
+    (8...256).each do |i|
+      table[i] = table[i - 4] ^ table[i - 5] ^ table[i - 6] ^ table[i - 8]
+    end
+    table
   end
 
-  (8...256).each do |i|
-    EXP_TABLE[i] = EXP_TABLE[i - 4] ^ EXP_TABLE[i - 5] ^ EXP_TABLE[i - 6] ^ EXP_TABLE[i - 8]
-  end
-
-  (0...255).each do |i|
-    LOG_TABLE[EXP_TABLE[i]] = i
+  private def self.build_log_table(exp_table)
+    table = Array(Int32).new(256, 0)
+    (0...255).each { |i| table[exp_table[i]] = i }
+    table
   end
 
   def self.glog(n)
