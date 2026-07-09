@@ -12,7 +12,7 @@ class QRCode::Alphanumeric
 
   def self.valid_data?(data)
     data.each_char do |s|
-      return false if ALPHANUMERIC.index(s).nil?
+      return false unless ALPHANUMERIC_VALUES.has_key?(s)
     end
     true
   end
@@ -23,10 +23,10 @@ class QRCode::Alphanumeric
     (@data.size).times do |i|
       if i % 2 == 0
         if i == (@data.size - 1)
-          value = ALPHANUMERIC.index(@data[i]).not_nil!
+          value = ALPHANUMERIC_VALUES[@data[i]]
           buffer.put(value, 6)
         else
-          value = (ALPHANUMERIC.index(@data[i]).not_nil! * 45) + ALPHANUMERIC.index(@data[i + 1]).not_nil!
+          value = (ALPHANUMERIC_VALUES[@data[i]] * 45) + ALPHANUMERIC_VALUES[@data[i + 1]]
           buffer.put(value, 11)
         end
       end

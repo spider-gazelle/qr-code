@@ -2,6 +2,10 @@ class QRCode
   ALPHANUMERIC = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', '$', '%', '*', '+', '-', '.', '/', ':']
   NUMERIC      = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
+  # char => alphanumeric value, for O(1) validation / encoding (avoids a linear
+  # ALPHANUMERIC.index scan per character)
+  ALPHANUMERIC_VALUES = ALPHANUMERIC.map_with_index { |char, i| {char, i} }.to_h
+
   MODE = {
     mode_number:     1 << 0,
     mode_alpha_numk: 1 << 1,
